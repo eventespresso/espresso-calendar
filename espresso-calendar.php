@@ -712,7 +712,8 @@ class EE_Calendar {
 				if ($wpdb->num_rows > 0 && $wpdb->last_result[0]->quantity != NULL) {
 					$num_completed = $wpdb->last_result[0]->quantity;
 				}
-				$reg_limit = $event->reg_limit; 
+				$reg_limit = $event->reg_limit;
+				$allow_overflow = $event->allow_overflow;
 
 				// add attendee limit if set
 				if ( $show_attendee_limit ) {
@@ -727,8 +728,12 @@ class EE_Calendar {
 					$events[ $cntr ]['tooltip'] .= '<div class="sold-out-dv">' . __('Registration Not Open', 'event_espresso') . '</div>';
 				} else if ( $num_completed < $reg_limit && ! $expired ) {
 					$events[ $cntr ]['tooltip'] .= '<a class="ui-state-active reg-now-btn" href="' . $events[ $cntr ]['url'] . '">' . $regButtonText . '</a>';				
-				} else if ( $num_completed >= $reg_limit && ! $expired ) {
+				} else if ( $num_completed >= $reg_limit && $allow_overflow == 'N' && ! $expired ) {
 					$events[ $cntr ]['tooltip'] .= '<div class="sold-out-dv">' . __('Sold Out', 'event_espresso') . '</div>';				
+				} else if ( $num_completed >= $reg_limit && $allow_overflow == 'Y' && ! $expired ) {
+					$overflow_event_id = $event->overflow_event_id;
+					$overflow_event_url = espresso_reg_url($overflow_event_id);
+					$events[ $cntr ]['tooltip'] .= '<a class="ui-state-active reg-now-btn" href="' . $overflow_event_url . '">' . __('Join Waiting List', 'event_espresso') . '</a>';
 				} else {
 					$events[ $cntr ]['tooltip'] .= '<div class="sold-out-dv">' . __('Registration Closed', 'event_espresso') . '</div>';				
 				}
