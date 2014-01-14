@@ -579,16 +579,16 @@ class EE_Calendar {
 
 			//Get the start and end times for each event
 			//important! time must be in iso8601 format 2010-05-10T08:30!!
-			$events[ $cntr ]['start'] = strtotime($event->start_date . ' ' . event_date_display($event->start_time, get_option('time_format')));
-			$events[ $cntr ]['end'] = strtotime($event->end_date . ' ' . event_date_display($event->end_time, get_option('time_format')));
-			$events[ $cntr ]['reg_start'] = strtotime($event->registration_start . ' ' . event_date_display($event->registration_startT, get_option('time_format')));
-			$events[ $cntr ]['reg_end'] = strtotime($event->registration_end . ' ' . event_date_display($event->registration_endT, get_option('time_format')));
+			$events[ $cntr ]['start'] = date("c", strtotime($event->start_date . ' ' . event_date_display($event->start_time, get_option('time_format'))));
+			$events[ $cntr ]['end'] = date("c", strtotime($event->end_date . ' ' . event_date_display($event->end_time, get_option('time_format'))));
+			$events[ $cntr ]['reg_start'] = date("c", strtotime($event->registration_start . ' ' . event_date_display($event->registration_startT, get_option('time_format'))));
+			$events[ $cntr ]['reg_end'] = date("c", strtotime($event->registration_end . ' ' . event_date_display($event->registration_endT, get_option('time_format'))));
 			
 			$start = strtotime( $event->start_date . ' ' . $event->start_time );
 			$end = strtotime( $event->end_date . ' ' . $event->end_time );
 			$events[ $cntr ]['event_days'] = max( ceil(( $end - $start ) / ( 60*60*24 )), 1 );
 
-			$expired = ($events[ $cntr ]['end'] < time() || $events[ $cntr ]['reg_end'] < time()) && $event->event_status != 'O' ? TRUE : FALSE;
+			$expired = ($events[ $cntr ]['end'] < date('c') || $events[ $cntr ]['reg_end'] < date('c')) && $event->event_status != 'O' ? TRUE : FALSE;
 			if ( $expired ) {
 				$events[ $cntr ]['className'] = 'expired';
 			} else {
@@ -596,7 +596,7 @@ class EE_Calendar {
 			}
 			
 			//Make sure registration is open 
-			$not_open = $events[ $cntr ]['reg_start'] > time() ? TRUE : FALSE;
+			$not_open = $events[ $cntr ]['reg_start'] > date('c') ? TRUE : FALSE;
 			if ( $not_open ) {
 				$events[ $cntr ]['className'] = 'expired';
 			} else {
