@@ -65,6 +65,11 @@ Specific Theme Fixes: This section will use !important much more than it should.
 #espresso_calendar td.fc-header-left {
 	text-align: left; /* flounder theme */
 }
+
+#espresso_calendar a {
+    max-width: none!important; /* enfold theme */
+}
+
 	
 /* 
 Calendar Specific Styles
