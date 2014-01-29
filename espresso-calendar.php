@@ -597,9 +597,9 @@ class EE_Calendar {
 			
 			//Make sure registration is open 
 			$not_open = $events[ $cntr ]['reg_start'] > date('c') ? TRUE : FALSE;
-			if ( $not_open ) 
+			if ( $not_open ) {
 				$events[ $cntr ]['className'] = 'not-open';
-			
+			}
 //			$this->timer->stop();
 //			echo $this->timer->get_elapse( __LINE__ );
 //			$this->timer->start();
