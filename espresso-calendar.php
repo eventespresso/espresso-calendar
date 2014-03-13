@@ -474,7 +474,7 @@ class EE_Calendar {
 		$SQL .= $event_category_id ?  " AND c.category_identifier = '$event_category_id' " : '';
 		$SQL .= $event_venue_id ?  " AND v.id = '$event_venue_id' " : '';
 //		$SQL .= " AND (( e.start_date >= %s AND e.start_date <= %s ) OR e.event_status != 'O' ) ";		
-		$SQL .= " AND ( e.start_date >= %s AND e.start_date <= %s ) ";		
+		$SQL .= " AND ( e.end_date >= %s AND e.start_date <= %s ) ";		
 		
 		if ($show_expired == "false") {
 			$SQL .= apply_filters( 'filter_hook_espresso_calendar_sef_and_start_end_dates', " AND ( e.start_date >= '$today' AND e.registration_end >= '$today' ) " );
