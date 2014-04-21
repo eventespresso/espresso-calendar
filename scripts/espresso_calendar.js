@@ -28,7 +28,7 @@ jQuery(document).ready(function($) {
 		header: {
 			left: eeCAL.header_left,
 			center: eeCAL.header_center,
-			right: eeCAL.header_right,
+			right: eeCAL.header_right
 		},
 		// Enables/disables use of jQuery UI theming.
 		theme: eeCAL.theme,
@@ -62,13 +62,13 @@ jQuery(document).ready(function($) {
 		columnFormat: {
 			month: eeCAL.columnFormat_month,
 			week: eeCAL.columnFormat_week,
-			day: eeCAL.columnFormat_day,
+			day: eeCAL.columnFormat_day
 		},
 		// Determines the text that will be displayed in the header's title.
 		titleFormat: {
 			month: eeCAL.titleFormat_month,
 			week: eeCAL.titleFormat_week,
-			day: eeCAL.titleFormat_day,
+			day: eeCAL.titleFormat_day
 		},
 		// Text that will be displayed on buttons of the header.
 		buttonText: {
@@ -79,7 +79,7 @@ jQuery(document).ready(function($) {
 			today: eeCAL.buttonText_today, 			// default 'today'
 			month: eeCAL.buttonText_month, 			// default 'month'
 			week: eeCAL.buttonText_week, 			// default 'week'
-			day: eeCAL.buttonText_day, 				// default 'day'
+			day: eeCAL.buttonText_day 				// default 'day'
 		},
 		
 		// Sets the background and border colors for all events on the calendar.
@@ -129,7 +129,7 @@ jQuery(document).ready(function($) {
 					callback( response );
 				},
 				error: function(response) {
-				},
+				}
 			});
 		},
 		// A hook for modifying a day cell.
@@ -222,7 +222,7 @@ jQuery(document).ready(function($) {
 						// Position my top left...
 						my: event.tooltip_my, 
 						// at the bottom right of...
-						at: event.tooltip_at,
+						at: event.tooltip_at
 					},
 					show: {
 						event: 'click mouseenter',
@@ -251,7 +251,7 @@ jQuery(document).ready(function($) {
 		loading: function( bool ) {
 			if ( bool ) $('#ee-calendar-ajax-loader-img').show();
 			else $('#ee-calendar-ajax-loader-img').hide();
-		},
+		}
 
 	});
 
