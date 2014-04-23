@@ -3,7 +3,7 @@
   Plugin Name: Event Espresso - Calendar
   Plugin URI: http://www.eventespresso.com
   Description: A full calendar addon for Event Espresso. Includes month, week, and day views.
-  Version: 2.2.3.DEV
+  Version: 2.2.4.DEV
   Author: Event Espresso
   Author URI: http://www.eventespresso.com
   Copyright 2013 Event Espresso (email : support@eventespresso.com)
@@ -134,7 +134,7 @@ class EE_Calendar {
 	 *  @return 	void
 	 */
 	public function calendar_version() {
-		return '2.2.3.DEV';
+		return '2.2.4.DEV';
 	}
 
 	/**
@@ -500,7 +500,7 @@ class EE_Calendar {
 			$SQL .= " FROM " . EVENTS_CATEGORY_REL_TABLE . ' r ';
 			$SQL .= " LEFT JOIN " . EVENTS_CATEGORY_TABLE . " c ON c.id = r.cat_id ";
 			$SQL .= " WHERE event_id IN ( '" . implode("', '", $EVT_IDs) . "' )";
-			$categories = $wpdb->get_results( $wpdb->prepare( $SQL, NULL ));
+			$categories = @$wpdb->get_results( $wpdb->prepare( $SQL, NULL ));
 //			echo '<h4>' . $wpdb->last_query . '  <br /><span style="font-size:10px;font-weight:normal;">' . __FILE__ . '<br />line no: ' . __LINE__ . '</span></h4>';
 			foreach ($categories as $category) {
 				$event_categories[$category->event_id][] = $category;
