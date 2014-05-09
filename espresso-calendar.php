@@ -500,7 +500,7 @@ class EE_Calendar {
 			$SQL .= " FROM " . EVENTS_CATEGORY_REL_TABLE . ' r ';
 			$SQL .= " LEFT JOIN " . EVENTS_CATEGORY_TABLE . " c ON c.id = r.cat_id ";
 			$SQL .= " WHERE event_id IN ( '" . implode("', '", $EVT_IDs) . "' )";
-			$categories = @$wpdb->get_results( $wpdb->prepare( $SQL, NULL ));
+			$categories = $wpdb->get_results( $SQL );
 //			echo '<h4>' . $wpdb->last_query . '  <br /><span style="font-size:10px;font-weight:normal;">' . __FILE__ . '<br />line no: ' . __LINE__ . '</span></h4>';
 			foreach ($categories as $category) {
 				$event_categories[$category->event_id][] = $category;
