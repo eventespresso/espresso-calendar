@@ -696,9 +696,12 @@ class EE_Calendar {
 
 			if ( $show_tooltips ) {
 				// gets the description of the event. This can be used for hover effects such as jQuery Tooltips or QTip
-				$events[ $cntr ]['description'] = wpautop( stripslashes( do_shortcode( $event->event_desc )));
+				$event_desc = do_shortcode( $event->event_desc );
+				$events[ $cntr ]['description'] = wpautop( stripslashes($event_desc) );
 				// use short descriptions
-				$events[ $cntr ]['description'] = reset( explode( '<!--more-->', $events[ $cntr ]['description'] ));
+				$event_desc_short = explode( '<!--more-->', $events[ $cntr ]['description'] );
+				$event_desc_short = reset( $event_desc_short );
+				$events[ $cntr ]['description'] = $event_desc_short;
 				// tooltip wrapper
 				$events[ $cntr ]['tooltip'] = '<div class="ui-tooltip-content qtip_info">';
 				// show time ?
