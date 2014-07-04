@@ -67,7 +67,7 @@ Specific Theme Fixes: This section will use !important much more than it should.
 }
 
 #espresso_calendar a {
-    max-width: none!important; /* enfold theme */
+    max-width: none !important; /* enfold theme */
 }
 
 	
@@ -533,7 +533,7 @@ a.reg-now-btn {
 	min-height: 15px;
 }
 .espresso_calendar_widget a.fc-event-skin div:hover {
-	background-position:6px 0px!important;
+	background-position:6px 0px !important;
 }
 .espresso_calendar_widget .fc-header h2 {
 	font-weight: normal;

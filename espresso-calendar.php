@@ -3,7 +3,7 @@
   Plugin Name: Event Espresso - Calendar
   Plugin URI: http://www.eventespresso.com
   Description: A full calendar addon for Event Espresso. Includes month, week, and day views.
-  Version: 2.2.3.p
+  Version: 2.2.4.p
   Author: Event Espresso
   Author URI: http://www.eventespresso.com
   Copyright 2013 Event Espresso (email : support@eventespresso.com)
@@ -134,7 +134,7 @@ class EE_Calendar {
 	 *  @return 	void
 	 */
 	public function calendar_version() {
-		return '2.2.3.p';
+		return '2.2.4.p';
 	}
 
 	/**
@@ -500,7 +500,7 @@ class EE_Calendar {
 			$SQL .= " FROM " . EVENTS_CATEGORY_REL_TABLE . ' r ';
 			$SQL .= " LEFT JOIN " . EVENTS_CATEGORY_TABLE . " c ON c.id = r.cat_id ";
 			$SQL .= " WHERE event_id IN ( '" . implode("', '", $EVT_IDs) . "' )";
-			$categories = $wpdb->get_results( $wpdb->prepare( $SQL, NULL ));
+			$categories = $wpdb->get_results( $SQL );
 //			echo '<h4>' . $wpdb->last_query . '  <br /><span style="font-size:10px;font-weight:normal;">' . __FILE__ . '<br />line no: ' . __LINE__ . '</span></h4>';
 			foreach ($categories as $category) {
 				$event_categories[$category->event_id][] = $category;
@@ -552,7 +552,8 @@ class EE_Calendar {
 				// extract info from separate array of category data ?
 				if ( isset( $event_categories[$event->id] ) ) {
 					// get first element of array without modifying original array
-					$primary_cat = array_shift(array_values($event_categories[$event->id]));
+					$primary_cat = array_values( $event_categories[$event->id] );
+					$primary_cat = array_shift( $primary_cat );
 					$category_data['category_meta'] = unserialize($primary_cat->category_meta);
 				} else {
 					$category_data['category_meta'] = array();
@@ -695,9 +696,12 @@ class EE_Calendar {
 
 			if ( $show_tooltips ) {
 				// gets the description of the event. This can be used for hover effects such as jQuery Tooltips or QTip
-				$events[ $cntr ]['description'] = wpautop( stripslashes( do_shortcode( $event->event_desc )));
+				$event_desc = do_shortcode( $event->event_desc );
+				$events[ $cntr ]['description'] = wpautop( stripslashes($event_desc) );
 				// use short descriptions
-				$events[ $cntr ]['description'] = reset( explode( '<!--more-->', $events[ $cntr ]['description'] ));
+				$event_desc_short = explode( '<!--more-->', $events[ $cntr ]['description'] );
+				$event_desc_short = reset( $event_desc_short );
+				$events[ $cntr ]['description'] = $event_desc_short;
 				// tooltip wrapper
 				$events[ $cntr ]['tooltip'] = '<div class="ui-tooltip-content qtip_info">';
 				// show time ?
