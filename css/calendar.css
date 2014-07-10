@@ -45,8 +45,9 @@ Specific Theme Fixes: This section will use !important much more than it should.
 	border-top: 0px solid #ededed !important; /*fixes top border on calendar header in twentytwelve*/
 }
 
-#espresso_calendar tr td, /* flounder theme */
-#espresso_calendar tr:hover td {
+.hentry.type-page .calendar_fullsize td:not(.fc-today), /* flounder theme */
+.calendar_fullsize tr td.fc-widget-content:not(.fc-today), /* all themes, themeroller disabled */
+.calendar_fullsize tr:hover td.fc-widget-content:not(.fc-today) {
 	background: none; /* expound theme */
 	background-color: transparent; /* spun theme */
 }
