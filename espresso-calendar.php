@@ -432,6 +432,7 @@ class EE_Calendar {
 		
 		global $wpdb, $org_options;
 		remove_shortcode('LISTATTENDEES');
+		remove_shortcode('gallery');
 		// get calendar options
 		$this->_calendar_options = $this->_get_calendar_options();
 		$today = date( 'Y-m-d' );
@@ -697,6 +698,7 @@ class EE_Calendar {
 			if ( $show_tooltips ) {
 				// gets the description of the event. This can be used for hover effects such as jQuery Tooltips or QTip
 				$event_desc = do_shortcode( $event->event_desc );
+				$event_desc = preg_replace('/\[gallery[^\]]*\]/', '', $event_desc);
 				$events[ $cntr ]['description'] = wpautop( stripslashes($event_desc) );
 				// use short descriptions
 				$event_desc_short = explode( '<!--more-->', $events[ $cntr ]['description'] );
