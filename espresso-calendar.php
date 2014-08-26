@@ -290,7 +290,7 @@ class EE_Calendar {
 							echo '<li id="ee-category-li-'.$catcode.'" class="has-sub" style="border-left: 10px solid #CCC";>';
 						}
 					
-						echo '<span class="ee-category"><a href="?event_category_id='.$category->category_identifier.'">'.$category->category_name.'</a></span></a></li>';
+						echo '<span class="ee-category"><a href="?event_category_id='.$category->category_identifier.'">'.stripslashes($category->category_name).'</a></span></a></li>';
 						
 					}
 					//echo '<li class="has-sub" style="border-left:solid 1px #000;"><a href="?event_category_id">'.__('All', 'event_espresso').'</a></li>';
