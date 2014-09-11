@@ -553,7 +553,8 @@ class EE_Calendar {
 				// extract info from separate array of category data ?
 				if ( isset( $event_categories[$event->id] ) ) {
 					// get first element of array without modifying original array
-					$primary_cat = array_values( $event_categories[$event->id] );
+					$primary_cat = $event_categories[$event->id];
+					asort($primary_cat);
 					$primary_cat = array_shift( $primary_cat );
 					$category_data['category_meta'] = unserialize($primary_cat->category_meta);
 				} else {
