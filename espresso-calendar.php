@@ -554,8 +554,15 @@ class EE_Calendar {
 				if ( isset( $event_categories[$event->id] ) ) {
 					// get first element of array without modifying original array
 					$primary_cat = $event_categories[$event->id];
-					$sort_cats = apply_filters( 'filter_hook_espresso_calendar_category_color_sort', true );
-					$sort_cats ? asort( $primary_cat ) : arsort( $primary_cat );
+					$sort_cats = apply_filters( 'filter_hook_espresso_calendar_category_color_sort', false );
+					switch( $sort_cats ) {
+						case 'asort': asort( $primary_cat );
+						break;
+						case 'arsort': arsort( $primary_cat );
+						break;
+						case 'false': $primary_cat;
+						break;
+					}
 					$primary_cat = array_shift( $primary_cat );
 					$category_data['category_meta'] = unserialize($primary_cat->category_meta);
 				} else {
