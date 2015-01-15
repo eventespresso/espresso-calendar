@@ -290,7 +290,7 @@ class EE_Calendar {
 							echo '<li id="ee-category-li-'.$catcode.'" class="has-sub" style="border-left: 10px solid #CCC";>';
 						}
 					
-						echo '<span class="ee-category"><a href="?event_category_id='.$category->category_identifier.'">'.$category->category_name.'</a></span></a></li>';
+						echo '<span class="ee-category"><a href="?event_category_id='.$category->category_identifier.'">'.stripslashes($category->category_name).'</a></span></a></li>';
 						
 					}
 					//echo '<li class="has-sub" style="border-left:solid 1px #000;"><a href="?event_category_id">'.__('All', 'event_espresso').'</a></li>';
@@ -432,6 +432,7 @@ class EE_Calendar {
 		
 		global $wpdb, $org_options;
 		remove_shortcode('LISTATTENDEES');
+		remove_shortcode('gallery');
 		// get calendar options
 		$this->_calendar_options = $this->_get_calendar_options();
 		$today = date( 'Y-m-d' );
@@ -552,7 +553,16 @@ class EE_Calendar {
 				// extract info from separate array of category data ?
 				if ( isset( $event_categories[$event->id] ) ) {
 					// get first element of array without modifying original array
-					$primary_cat = array_values( $event_categories[$event->id] );
+					$primary_cat = $event_categories[$event->id];
+					$sort_cats = apply_filters( 'filter_hook_espresso_calendar_category_color_sort', 'asort' );
+					switch( $sort_cats ) {
+						case 'asort': usort($primary_cat, array($this, 'asort_by_cat_name'));
+						break;
+						case 'arsort': usort($primary_cat, array($this, 'arsort_by_cat_name'));
+						break;
+						case 'false': $primary_cat;
+						break;
+					}
 					$primary_cat = array_shift( $primary_cat );
 					$category_data['category_meta'] = unserialize($primary_cat->category_meta);
 				} else {
@@ -697,6 +707,7 @@ class EE_Calendar {
 			if ( $show_tooltips ) {
 				// gets the description of the event. This can be used for hover effects such as jQuery Tooltips or QTip
 				$event_desc = do_shortcode( $event->event_desc );
+				$event_desc = preg_replace('/\[gallery[^\]]*\]/', '', $event_desc);
 				$events[ $cntr ]['description'] = wpautop( stripslashes($event_desc) );
 				// use short descriptions
 				$event_desc_short = explode( '<!--more-->', $events[ $cntr ]['description'] );
@@ -765,6 +776,17 @@ class EE_Calendar {
 		die();
 
 	}
+
+
+    private function asort_by_cat_name($a, $b)
+    {
+    	return strcmp($a->category_name, $b->category_name);
+    }
+    private function arsort_by_cat_name($a, $b)
+    {
+    	return -strcmp($a->category_name, $b->category_name);
+    }
+
 	
 	/**
 	 * 	widget_init
