@@ -556,9 +556,9 @@ class EE_Calendar {
 					$primary_cat = $event_categories[$event->id];
 					$sort_cats = apply_filters( 'filter_hook_espresso_calendar_category_color_sort', 'asort' );
 					switch( $sort_cats ) {
-						case 'asort': asort( $primary_cat );
+						case 'asort': usort($primary_cat, array($this, 'asort_by_cat_name'));
 						break;
-						case 'arsort': arsort( $primary_cat );
+						case 'arsort': usort($primary_cat, array($this, 'arsort_by_cat_name'));
 						break;
 						case 'false': $primary_cat;
 						break;
@@ -776,6 +776,17 @@ class EE_Calendar {
 		die();
 
 	}
+
+
+    private function asort_by_cat_name($a, $b)
+    {
+    	return strcmp($a->category_name, $b->category_name);
+    }
+    private function arsort_by_cat_name($a, $b)
+    {
+    	return -strcmp($a->category_name, $b->category_name);
+    }
+
 	
 	/**
 	 * 	widget_init
