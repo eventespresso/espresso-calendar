@@ -28,13 +28,13 @@ class Espresso_Calendar_Widget extends WP_Widget {
 
 
 
-	public function espresso_calendar_widget() {
+	public function __construct() {
 		/* Widget settings. */
 		$widget_options = array('classname' => 'espresso_calendar_widget', 'description' => 'Displays the Espresso Calendar in a widget.');
 		/* Widget control settings. */
 		$control_options = array('width' => 300, 'height' => 350, 'id_base' => 'espresso-calendar-widget');
 		/* Create the widget. */
-		$this->WP_Widget('espresso-calendar-widget', 'Event Espresso Calendar Widget', $widget_options, $control_options);
+		parent::__construct('espresso-calendar-widget', 'Event Espresso Calendar Widget', $widget_options, $control_options);
 	}
 
 
