@@ -268,8 +268,27 @@ class EE_Calendar {
 			$v_sql = "SELECT * FROM " . EVENTS_VENUE_TABLE;
 			$temp_venue = $wpdb->get_results($v_sql);
 			
-			
 			if (!empty($temp_venue) || !empty($temp_cats)){
+
+				$sort_cats = apply_filters( 'filter_hook_espresso_calendar_category_sort', 'asort' );
+				switch( $sort_cats ) {
+					case 'asort': usort($temp_cats, array($this, 'asort_by_cat_name'));
+					break;
+					case 'arsort': usort($temp_cats, array($this, 'arsort_by_cat_name'));
+					break;
+					case 'false': $temp_cats;
+					break;
+				}
+
+				$sort_venues = apply_filters( 'filter_hook_espresso_calendar_venue_sort', 'asort' );
+				switch( $sort_venues ) {
+					case 'asort': usort($temp_venue, array($this, 'asort_by_venue_name'));
+					break;
+					case 'arsort': usort($temp_venue, array($this, 'arsort_by_venue_name'));
+					break;
+					case 'false': $temp_venue;
+					break;
+				}
 				
 				ob_start();
 				
@@ -778,6 +797,7 @@ class EE_Calendar {
 	}
 
 
+	//Sort categories by name
     private function asort_by_cat_name($a, $b)
     {
     	return strcmp($a->category_name, $b->category_name);
@@ -786,6 +806,17 @@ class EE_Calendar {
     {
     	return -strcmp($a->category_name, $b->category_name);
     }
+
+    //Sort venues by name
+    private function asort_by_venue_name($a, $b)
+    {
+    	return strcmp($a->name, $b->name);
+    }
+    private function arsort_by_venue_name($a, $b)
+    {
+    	return -strcmp($a->name, $b->name);
+    }
+
 
 	
 	/**
