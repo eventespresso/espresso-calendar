@@ -618,7 +618,7 @@ class EE_Calendar {
 			$end = strtotime( $event->end_date . ' ' . $event->end_time );
 			$events[ $cntr ]['event_days'] = max( ceil(( $end - $start ) / ( 60*60*24 )), 1 );
 
-			$expired = ($events[ $cntr ]['end'] < date('c') || $events[ $cntr ]['reg_end'] < date('c')) && $event->event_status != 'O' ? TRUE : FALSE;
+			$expired = ($events[ $cntr ]['end'] < current_time('c') || $events[ $cntr ]['reg_end'] < current_time('c')) && $event->event_status != 'O' ? TRUE : FALSE;
 			if ( $expired ) {
 				$events[ $cntr ]['className'] = 'expired';
 			} else {
@@ -626,7 +626,7 @@ class EE_Calendar {
 			}
 			
 			//Make sure registration is open 
-			$not_open = $events[ $cntr ]['reg_start'] > date('c') ? TRUE : FALSE;
+			$not_open = $events[ $cntr ]['reg_start'] > current_time('c') ? TRUE : FALSE;
 			if ( $not_open ) {
 				$events[ $cntr ]['className'] = 'not-open';
 			}
