@@ -454,7 +454,7 @@ class EE_Calendar {
 		remove_shortcode('gallery');
 		// get calendar options
 		$this->_calendar_options = $this->_get_calendar_options();
-		$today = date( 'Y-m-d' );
+		$today = current_time( 'Y-m-d' );
 		$month = date('m' );
 		$year = date('Y' );
 		$start_date = isset( $_REQUEST['start_date'] ) ? date( 'Y-m-d', absint( $_REQUEST['start_date'] )) : date('Y-m-d', mktime( 0, 0, 0, $month, 1, $year ));
