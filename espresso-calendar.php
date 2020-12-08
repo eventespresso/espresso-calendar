@@ -196,7 +196,7 @@ class EE_Calendar {
 		if ( $show_tooltips ) {
 			// register jQuery qtip
 			wp_register_style( 'qtip', ESPRESSO_CALENDAR_PLUGINFULLURL . 'css/jquery.qtip.min.css' );
-			wp_register_script( 'jquery-qtip', ESPRESSO_CALENDAR_PLUGINFULLURL . 'scripts/jquery.qtip.js', array('jquery'), '2.1.1', TRUE);			
+			wp_register_script( 'jquery-qtip', ESPRESSO_CALENDAR_PLUGINFULLURL . 'scripts/jquery.qtip.min.js', array('jquery'), '3.0.3', TRUE);			
 		}
 		
 		// load base calendar style
